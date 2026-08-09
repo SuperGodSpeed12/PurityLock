@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Purity Lock Settings</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="settings-page">
+  <main class="settings-shell">
+    <header class="settings-header">
+      <p class="eyebrow">Purity Lock Settings</p>
+      <h1>Stay focused. Stay protected.</h1>
+      <p>Manage your whitelist, security PIN, and custom verses in one simple place.</p>
+    </header>
+
+    <section class="status-card" aria-live="polite">
+      <div><span class="status-dot" id="status-dot"></span><strong id="status-title">Protection active</strong></div>
+      <p id="status-detail">Checking saved protection status…</p>
+      <button id="test-recovery" class="btn btn-secondary" type="button">Test recovery flow</button>
+    </section>
+
+    <section class="setting-card">
+      <h2>Whitelist</h2>
+      <p>Domains entered here will never be blocked. Enter one domain per line.</p>
+      <label for="whitelist">Trusted domains</label>
+      <textarea id="whitelist" placeholder="github.com&#10;example.org" aria-describedby="whitelist-help"></textarea>
+      <p id="whitelist-help" class="helper">Example: github.com. Add only websites you intend to keep always accessible.</p>
+      <button id="save-whitelist" class="btn btn-primary">Save Whitelist</button>
+    </section>
+
+    <section class="setting-card">
+      <h2>Protection PIN</h2>
+      <p>Set an optional PIN for future protection controls. Leave it blank to remove it.</p>
+      <label for="pin">New PIN</label>
+      <input type="password" id="pin" autocomplete="new-password" placeholder="Enter a PIN or leave blank" />
+      <p class="helper">The PIN is saved as a one-way hash on this device. It is not a substitute for a device password.</p>
+      <button id="save-pin" class="btn btn-primary">Save PIN</button>
+    </section>
+
+    <section class="setting-card">
+      <h2>Custom Bible Verses</h2>
+      <p>Add your own verses as a JSON array containing <code>text</code> and <code>ref</code> fields.</p>
+      <label for="verses">Verse JSON</label>
+      <textarea id="verses" spellcheck="false" placeholder='[&#10;  {&#10;    "text": "I can do all things through Christ who strengthens me.",&#10;    "ref": "Philippians 4:13"&#10;  }&#10;]'></textarea>
+      <p class="helper">Leave empty to use the default verses.</p>
+      <button id="save-verses" class="btn btn-primary">Save Verses</button>
+    </section>
+
+    <section class="setting-card">
+      <h2>About the blocklist</h2>
+      <p>Purity Lock includes 76,747 domains derived from the StevenBlack hosts porn list and related sources. To update it manually, replace <code>blocklist.json</code> with a JSON array of domains, then reload the extension.</p>
+      <p class="helper">Updates take effect only after the extension is reloaded. A validated local cache keeps the last usable list available if loading fails.</p>
+    </section>
+
+    <footer class="settings-footer"><strong>Stay strong. You are not alone.</strong><br />Small steps matter. Keep going.</footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,564 @@
+/* ==========================================================================
+   PURITY LOCK — Base Component Styles
+   Requires styles/themes.css to be loaded first (defines all --tokens).
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-primary);
+  background: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+/* ---------------------------------------------------------------
+   AMBIENT BACKGROUND — faint radial glows + drifting grid, the
+   thing that makes flat panels feel like a HUD floating in space.
+   --------------------------------------------------------------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 900px 600px at 12% -10%, hsl(var(--accent-hue) var(--accent-sat) var(--accent-light) / 0.16), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 100% 10%, var(--gold-glow), transparent 55%),
+    radial-gradient(ellipse 800px 700px at 50% 120%, hsl(var(--accent-hue) var(--accent-sat) var(--accent-light) / 0.10), transparent 60%),
+    var(--bg-color);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(var(--glass-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--glass-border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
+}
+
+::selection { background: var(--accent-glow); color: var(--platinum); }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+
+/* ---------------------------------------------------------------
+   TYPOGRAPHY
+   --------------------------------------------------------------- */
+h1, h2, h3, .heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+h1 { font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: 0.04em; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1rem; letter-spacing: 0.12em; color: var(--text-secondary); }
+
+p, span, li, label, input, textarea, select, button { font-family: var(--font-primary); }
+
+.eyebrow {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Stats / countdowns — tabular, technical, alive */
+.stat-value, .timer, .countdown, .stat-number {
+  font-family: var(--font-stat);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.timer-large {
+  font-family: var(--font-stat);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(135deg, var(--platinum), var(--accent-color-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 40px var(--accent-glow);
+}
+
+/* Scripture / reflection text — calm, elegant reading experience */
+.verse, .scripture, blockquote {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--platinum);
+}
+
+.verse-reference, .scripture-ref {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  color: var(--gold-color);
+  font-style: normal;
+  letter-spacing: 0.03em;
+}
+
+/* ---------------------------------------------------------------
+   LOGO WORDMARK
+   Original geometric mark: wide tracking, sharp corners, a gold
+   underline "lock bar" beneath the second letterform.
+   --------------------------------------------------------------- */
+.logo-wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.05em;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--platinum);
+  position: relative;
+}
+.logo-wordmark .mark-accent {
+  color: var(--gold-color);
+  position: relative;
+}
+.logo-wordmark .mark-accent::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -0.28em;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-color), transparent);
+  box-shadow: 0 0 8px var(--gold-glow);
+}
+.logo-tagline {
+  font-family: var(--font-heading);
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------
+   GLASS PANEL — the core surface used everywhere
+   --------------------------------------------------------------- */
+.glass-panel, .card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-premium), var(--shadow-inset);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+/* faint top sheen — makes glass read as glass, not flat fill */
+.glass-panel::before, .card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--glass-highlight), transparent 40%);
+  pointer-events: none;
+}
+
+.glass-panel:hover, .card:hover {
+  border-color: hsl(var(--accent-hue) var(--accent-sat) var(--accent-light) / 0.45);
+  box-shadow: var(--shadow-premium), 0 0 0 1px hsl(var(--accent-hue) var(--accent-sat) var(--accent-light) / 0.15), var(--shadow-inset);
+  transform: translateY(-2px);
+}
+
+.glass-panel-strong {
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur-lg);
+  -webkit-backdrop-filter: var(--glass-blur-lg);
+}
+
+/* Breathing glow — slow pulse on hero panels (lock screen, home shield) */
+.glow-breathe {
+  animation: breatheGlow var(--pulse-duration) ease-in-out infinite;
+}
+@keyframes breatheGlow {
+  0%, 100% { box-shadow: var(--shadow-premium), 0 0 24px hsl(var(--accent-hue) var(--accent-sat) var(--accent-light) / 0.18); }
+  50%      { box-shadow: var(--shadow-premium), 0 0 48px hsl(var(--accent-hue) var(--accent-sat) var(--accent-light) / 0.38); }
+}
+
+.glow-gold-breathe {
+  animation: breatheGold var(--pulse-duration) ease-in-out infinite;
+}
+@keyframes breatheGold {
+  0%, 100% { box-shadow: var(--shadow-premium), 0 0 20px var(--gold-glow); }
+  50%      { box-shadow: var(--shadow-premium), 0 0 40px var(--gold-glow); }
+}
+
+/* Floating idle animation for hero cards */
+.float {
+  animation: floatY 6s ease-in-out infinite;
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Page transitions */
+.page-enter { animation: pageIn 0.4s cubic-bezier(0.4,0,0.2,1) both; }
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ---------------------------------------------------------------
+   BUTTONS — with ripple micro-interaction
+   --------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  border: none;
+  text-decoration: none;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 60%);
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  z-index: -1;
+}
+.btn:active::after {
+  transform: scale(2.5);
+  opacity: 0.25;
+  transition: 0s;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-color-dark));
+  color: #04070D;
+  box-shadow: 0 4px 24px var(--accent-glow);
+}
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 10px 32px var(--accent-glow);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-color), #B8903A);
+  color: #1A1204;
+  box-shadow: 0 4px 24px var(--gold-glow);
+}
+.btn-gold:hover { transform: translateY(-2px) scale(1.015); box-shadow: 0 10px 32px var(--gold-glow); }
+
+.btn-secondary {
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+}
+.btn-secondary:hover { background: var(--glass-bg-strong); border-color: var(--accent-color); color: var(--accent-color-2); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+}
+.btn-ghost:hover { color: var(--text-primary); background: var(--glass-highlight); }
+
+.btn-icon {
+  width: 42px; height: 42px; padding: 0; border-radius: var(--radius-sm);
+}
+
+/* ---------------------------------------------------------------
+   INPUTS
+   --------------------------------------------------------------- */
+.input, input[type="text"], input[type="password"], input[type="search"], textarea, select {
+  width: 100%;
+  padding: 0.8rem 1.1rem;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+.input:focus, input:focus, textarea:focus, select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px var(--accent-glow-soft);
+}
+.input::placeholder, input::placeholder { color: var(--text-tertiary); }
+
+/* PIN dots */
+.pin-dots { display: flex; gap: 0.6rem; justify-content: center; }
+.pin-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--glass-border);
+  transition: var(--transition-smooth);
+}
+.pin-dot.filled {
+  background: var(--accent-color);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* ---------------------------------------------------------------
+   PROGRESS RING / FOCUS TIMER
+   --------------------------------------------------------------- */
+.progress-ring { position: relative; width: 200px; height: 200px; }
+.progress-ring svg { transform: rotate(-90deg); }
+.progress-ring circle { fill: transparent; stroke-width: 8; stroke-linecap: round; }
+.progress-ring .background { stroke: var(--glass-border); }
+.progress-ring .foreground {
+  stroke: var(--accent-color);
+  transition: stroke-dashoffset 0.3s ease;
+  filter: drop-shadow(0 0 8px var(--accent-glow));
+}
+.progress-ring .text {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* ---------------------------------------------------------------
+   STATUS ORB — glowing live indicator, gently pulses
+   --------------------------------------------------------------- */
+.status-orb {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--success-color);
+  box-shadow: 0 0 8px var(--success-color);
+  position: relative;
+  flex-shrink: 0;
+}
+.status-orb::after {
+  content: "";
+  position: absolute; inset: -6px;
+  border-radius: 50%;
+  border: 1px solid var(--success-color);
+  opacity: 0.6;
+  animation: orbPing 2.2s ease-out infinite;
+}
+.status-orb.warning { background: var(--warning-color); box-shadow: 0 0 8px var(--warning-color); }
+.status-orb.warning::after { border-color: var(--warning-color); }
+.status-orb.danger { background: var(--danger-color); box-shadow: 0 0 8px var(--danger-color); }
+.status-orb.danger::after { border-color: var(--danger-color); }
+@keyframes orbPing {
+  0% { transform: scale(0.6); opacity: 0.7; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* ---------------------------------------------------------------
+   BADGES / ACHIEVEMENTS
+   --------------------------------------------------------------- */
+.badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: var(--glass-highlight);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+}
+.badge-success { color: var(--success-color); border-color: hsl(160 70% 50% / 0.35); background: hsl(160 70% 50% / 0.1); }
+.badge-warning { color: var(--warning-color); border-color: hsl(38 92% 55% / 0.35); background: hsl(38 92% 55% / 0.1); }
+.badge-danger  { color: var(--danger-color); border-color: hsl(0 85% 68% / 0.35); background: hsl(0 85% 68% / 0.1); }
+.badge-gold    { color: var(--gold-color); border-color: var(--gold-glow); background: rgba(216,178,74,0.10); }
+
+.achievement-tile {
+  aspect-ratio: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem;
+  border-radius: var(--radius-md);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-smooth);
+}
+.achievement-tile.earned {
+  border-color: hsl(var(--accent-hue) var(--accent-sat) var(--accent-light) / 0.5);
+  box-shadow: 0 0 24px var(--accent-glow-soft);
+}
+.achievement-tile.locked { opacity: 0.45; filter: grayscale(0.6); }
+
+/* ---------------------------------------------------------------
+   BOTTOM / SIDE NAVIGATION
+   --------------------------------------------------------------- */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur-lg);
+  -webkit-backdrop-filter: var(--glass-blur-lg);
+  border-top: 1px solid var(--glass-border);
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+  font-size: 0.65rem; letter-spacing: 0.02em;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-sm);
+}
+.nav-item.active {
+  color: var(--accent-color-2);
+  background: var(--accent-glow-soft);
+}
+.nav-item:hover:not(.active) { color: var(--text-secondary); }
+
+/* ---------------------------------------------------------------
+   CHARTS — thin glowing lines, holographic bars
+   --------------------------------------------------------------- */
+.chart-line { stroke: var(--accent-color); stroke-width: 2; fill: none; filter: drop-shadow(0 0 6px var(--accent-glow)); }
+.chart-area { fill: url(#chartGradient); opacity: 0.5; }
+.bar {
+  background: linear-gradient(180deg, var(--accent-color), var(--accent-color-dark));
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 0 12px var(--accent-glow-soft);
+}
+
+/* ---------------------------------------------------------------
+   THEME GALLERY / COLOR SWATCHES  (Settings → Appearance)
+   --------------------------------------------------------------- */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 1rem;
+}
+.swatch {
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-sm);
+  border: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  display: flex; align-items: flex-end;
+}
+.swatch span {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+}
+.swatch:hover { transform: translateY(-2px); }
+.swatch.selected { border-color: var(--accent-color-2); box-shadow: 0 0 0 3px var(--accent-glow-soft); }
+.swatch.selected::after {
+  content: "✓";
+  position: absolute; top: 6px; right: 6px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--accent-color); color: #04070D;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 900;
+}
+
+/* Custom color picker row */
+.color-picker-row { display: flex; align-items: center; gap: 0.75rem; }
+.color-picker-row input[type="color"] {
+  -webkit-appearance: none; appearance: none;
+  width: 44px; height: 44px; border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border); background: none; padding: 0; cursor: pointer;
+}
+.color-picker-row input[type="color"]::-webkit-color-swatch-wrapper { padding: 3px; }
+.color-picker-row input[type="color"]::-webkit-color-swatch { border-radius: 8px; border: none; }
+
+/* Font option cards */
+.font-option {
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+.font-option:hover { border-color: var(--accent-color); }
+.font-option.selected { border-color: var(--accent-color-2); box-shadow: 0 0 0 3px var(--accent-glow-soft); }
+.font-option .font-sample { font-size: 1.1rem; margin-bottom: 0.2rem; }
+.font-option .font-name { font-size: 0.7rem; color: var(--text-tertiary); letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* Toggle switch */
+.toggle { position: relative; width: 44px; height: 24px; display: inline-block; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-track {
+  position: absolute; inset: 0; border-radius: var(--radius-full);
+  background: var(--glass-border); transition: var(--transition-smooth); cursor: pointer;
+}
+.toggle-track::before {
+  content: ""; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px;
+  border-radius: 50%; background: var(--text-primary); transition: var(--transition-smooth);
+}
+.toggle input:checked + .toggle-track { background: var(--accent-color); box-shadow: 0 0 12px var(--accent-glow); }
+.toggle input:checked + .toggle-track::before { transform: translateX(20px); background: #04070D; }
+
+/* ---------------------------------------------------------------
+   UTILITIES
+   --------------------------------------------------------------- */
+.hidden { display: none !important; }
+.flex { display: flex; }
+.grid { display: grid; }
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.text-center { text-align: center; }
+.text-secondary { color: var(--text-secondary); }
+.text-gold { color: var(--gold-color); }
+.text-accent { color: var(--accent-color-2); }
+.w-full { width: 100%; }
+.rounded-lg { border-radius: var(--radius-lg); }

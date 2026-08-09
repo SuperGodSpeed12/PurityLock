@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Purity Lock</title>
+  <link rel="stylesheet" href="../styles/themes.css" />
+  <link rel="stylesheet" href="../styles/base.css" />
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--bg-color) 0%, #1e293b 100%);
+    }
+    .onboarding-card {
+      max-width: 600px;
+      width: 90%;
+      padding: 3rem;
+      text-align: center;
+    }
+    .logo-large {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 2rem;
+    }
+    .feature-list {
+      text-align: left;
+      margin: 2rem 0;
+    }
+    .feature-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .feature-icon {
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="onboarding-card card">
+    <img src="../icons/icon128.png" alt="Logo" class="logo-large" />
+    <h1>Welcome to Purity Lock</h1>
+    <p>Your premium companion for productivity and personal accountability.</p>
+    
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="feature-icon">✓</span>
+        <div>
+          <strong>Intelligent Blocking</strong>
+          <p style="margin: 0; font-size: 0.9rem;">Powered by a curated list of over 70,000 domains.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">✓</span>
+        <div>
+          <strong>Supportive Recovery</strong>
+          <p style="margin: 0; font-size: 0.9rem;">Guided breathing and reflections when you need them most.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">✓</span>
+        <div>
+          <strong>Timed Focus Locks</strong>
+          <p style="margin: 0; font-size: 0.9rem;">Commit to your goals with non-bypassable focus sessions.</p>
+        </div>
+      </div>
+    </div>
+
+    <button id="get-started" class="btn btn-primary" style="width: 100%;">Get Started</button>
+    
+    <p class="mt-4" style="font-size: 0.8rem;">
+      Small steps matter. Stay strong.
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('get-started').addEventListener('click', () => {
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+</body>
+</html>

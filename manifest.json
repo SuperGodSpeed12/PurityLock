@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "Purity Lock",
+  "version": "2.2.0",
+  "description": "Premium productivity and accountability extension with intelligent blocking and recovery.",
+  "permissions": [
+    "storage",
+    "tabs",
+    "webNavigation",
+    "alarms",
+    "scripting",
+    "notifications"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.google.com/*", "*://*.bing.com/*", "*://*.duckduckgo.com/*"],
+      "js": ["scripts/content_blocker.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_popup": "pages/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_ui": {
+    "page": "pages/dashboard.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "pages/*",
+        "styles/*",
+        "scripts/*",
+        "assets/*",
+        "blocklist.json"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

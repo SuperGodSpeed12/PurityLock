@@ -1,0 +1,188 @@
+/* ==========================================================================
+   PURITY LOCK — Premium Design System
+   Glassmorphism · Holographic HUD · Luxury Cybersecurity Aesthetic
+   ==========================================================================
+   This file holds every design TOKEN. Nothing here draws a component —
+   base.css does that. Change a value here (or via scripts/appearance.js)
+   and the entire product re-skins instantly.
+   ========================================================================== */
+
+/* ---- Typeface imports (Google-hosted equivalents of the brief) --------
+   Primary UI    → Space Grotesk   (fallback: Satoshi, if self-hosted)
+   Headings      → Orbitron        (fallback: Eurostile Extended)
+   Stats/Timers  → Rajdhani        (fallback: Oxanium)
+   Scripture     → Cormorant Garamond (fallback: Libre Baskerville)
+   -------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Oxanium:wght@400;500;600;700&display=swap');
+
+:root {
+  /* =========================================================
+     1. CORE BRAND PALETTE — Purity Lock "Midnight & Gold"
+     ========================================================= */
+  --midnight-navy:   #060B16;
+  --midnight-navy-2: #0A1220;   /* elevated surface / card base   */
+  --royal-blue:       #2D6BFF;
+  --electric-blue:    #59C7FF;
+  --royal-gold:       #D8B24A; /* fixed luxury constant — see appearance.js note */
+  --platinum:          #E9EEF7;
+  --glass-bg:          rgba(15, 25, 42, 0.55);
+  --glass-bg-strong:   rgba(15, 25, 42, 0.78);
+
+  --success-color:   #34D399;
+  --warning-color:   #FBBF24;
+  --danger-color:    #F87171;
+
+  /* =========================================================
+     2. ADJUSTABLE ACCENT — driven by scripts/appearance.js
+     Everything below is expressed in HSL so a single hue/sat/
+     light change (or a picked hex, converted in JS) re-tints
+     every glow, gradient and ring in the product.
+     ========================================================= */
+  --accent-hue: 222;
+  --accent-sat: 100%;
+  --accent-light: 60%;
+
+  --accent-color:     hsl(var(--accent-hue) var(--accent-sat) var(--accent-light));
+  --accent-color-2:   hsl(var(--accent-hue) calc(var(--accent-sat) - 8%) 74%);   /* electric variant */
+  --accent-color-dark: hsl(var(--accent-hue) var(--accent-sat) 44%);
+  --accent-glow:      hsl(var(--accent-hue) var(--accent-sat) var(--accent-light) / 0.40);
+  --accent-glow-soft: hsl(var(--accent-hue) var(--accent-sat) var(--accent-light) / 0.16);
+
+  /* Gold accent — always available as a secondary highlight regardless
+     of the chosen theme, so the brand always reads "premium". */
+  --gold-color:  var(--royal-gold);
+  --gold-glow:   rgba(216, 178, 74, 0.35);
+
+  /* =========================================================
+     3. SURFACE / TEXT TOKENS
+     ========================================================= */
+  --bg-color:        var(--midnight-navy);
+  --bg-color-2:      var(--midnight-navy-2);
+  --glass-border:    rgba(233, 238, 247, 0.10);
+  --glass-highlight: rgba(255, 255, 255, 0.06);
+  --text-primary:    var(--platinum);
+  --text-secondary:  #8B99B6;
+  --text-tertiary:   #5A6786;
+
+  /* =========================================================
+     4. TYPOGRAPHY
+     ========================================================= */
+  --font-primary: 'Space Grotesk', 'Satoshi', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Orbitron', 'Eurostile Extended', 'Space Grotesk', sans-serif;
+  --font-stat:    'Rajdhani', 'Oxanium', 'Space Grotesk', sans-serif;
+  --font-serif:   'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+
+  /* =========================================================
+     5. GEOMETRY, DEPTH & MOTION
+     ========================================================= */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-full: 9999px;
+
+  --glass-blur: blur(20px);
+  --glass-blur-lg: blur(32px);
+
+  --shadow-premium: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+  --shadow-float:   0 20px 60px -12px rgba(0, 0, 0, 0.55);
+  --shadow-inset:   inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-snappy:  all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  --pulse-duration: 4s;
+}
+
+/* =============================================================
+   THEME PRESETS  (data-theme="…" on <html> or <body>)
+   Mirrors the "Theme Gallery" grid: Royal Blue · Midnight ·
+   Amber · Emerald · Lavender · Crimson · Ocean · Galaxy
+   Each preset only overrides hue/sat/light + a background tint —
+   every component automatically re-tints because base.css only
+   ever references the tokens above.
+   ============================================================= */
+
+[data-theme="royal-blue"] {
+  --accent-hue: 222; --accent-sat: 100%; --accent-light: 60%;
+  --bg-color: #060B16; --bg-color-2: #0A1220;
+}
+
+[data-theme="midnight"] {
+  --accent-hue: 250; --accent-sat: 85%; --accent-light: 64%;
+  --bg-color: #0A0A18; --bg-color-2: #100F24;
+}
+
+[data-theme="amber"] {
+  --accent-hue: 38; --accent-sat: 92%; --accent-light: 58%;
+  --bg-color: #120D04; --bg-color-2: #1A1207;
+  --accent-color-2: hsl(45 96% 72%);
+}
+
+[data-theme="emerald"] {
+  --accent-hue: 160; --accent-sat: 72%; --accent-light: 52%;
+  --bg-color: #04120D; --bg-color-2: #071A14;
+}
+
+[data-theme="lavender"] {
+  --accent-hue: 262; --accent-sat: 80%; --accent-light: 68%;
+  --bg-color: #0D0A1A; --bg-color-2: #140F26;
+}
+
+[data-theme="crimson"] {
+  --accent-hue: 355; --accent-sat: 82%; --accent-light: 62%;
+  --bg-color: #140508; --bg-color-2: #1E080C;
+}
+
+[data-theme="ocean"] {
+  --accent-hue: 199; --accent-sat: 90%; --accent-light: 58%;
+  --bg-color: #051622; --bg-color-2: #072034;
+}
+
+[data-theme="galaxy"] {
+  --accent-hue: 280; --accent-sat: 78%; --accent-light: 64%;
+  --bg-color: #0A0518; --bg-color-2: #130A28;
+  --accent-color-2: hsl(320 80% 70%);
+}
+
+/* =============================================================
+   LIGHT MODE (kept for accessibility / preference — the product
+   is designed dark-first, light desaturates the glow effects)
+   ============================================================= */
+[data-mode="light"] {
+  --bg-color: #EEF2F9;
+  --bg-color-2: #FFFFFF;
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-bg-strong: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(6, 11, 22, 0.08);
+  --text-primary: #0A1220;
+  --text-secondary: #4B5773;
+  --text-tertiary: #7A8398;
+}
+
+/* =============================================================
+   ACCESSIBILITY
+   ============================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+[data-reduced-motion="true"] * {
+  animation: none !important;
+  transition-duration: 0.01ms !important;
+}
+
+[data-high-contrast="true"] {
+  --glass-bg: #000000;
+  --glass-bg-strong: #000000;
+  --glass-border: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: #f2f2f2;
+  --accent-color: #00e5ff;
+  --accent-color-2: #00e5ff;
+  --glass-blur: none;
+  --glass-blur-lg: none;
+}

@@ -1,0 +1,10 @@
+{
+  "adult": ["pornhub.com", "xvideos.com", "xnxx.com", "onlyfans.com", "chaturbate.com"],
+  "social": ["facebook.com", "instagram.com", "twitter.com", "x.com", "tiktok.com", "reddit.com"],
+  "gambling": ["stake.com", "roobet.com", "bet365.com", "draftkings.com"],
+  "shopping": ["amazon.com", "ebay.com", "aliexpress.com", "temu.com"],
+  "streaming": ["netflix.com", "hulu.com", "disneyplus.com", "twitch.tv", "youtube.com"],
+  "gaming": ["roblox.com", "steamcommunity.com", "epicgames.com", "discord.com"],
+  "ai": ["chatgpt.com", "openai.com", "anthropic.com", "claude.ai", "perplexity.ai"],
+  "news": ["cnn.com", "foxnews.com", "bbc.com", "nytimes.com"]
+}

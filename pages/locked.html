@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Locked | Purity Lock</title>
+  <link rel="stylesheet" href="../styles/themes.css" />
+  <link rel="stylesheet" href="../styles/base.css" />
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, var(--bg-color) 0%, #000 100%);
+    }
+    .locked-container {
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+    }
+    .timer-ring {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      margin: 2rem auto;
+    }
+    .timer-ring svg { transform: rotate(-90deg); }
+    .timer-ring circle { fill: none; stroke-width: 12; stroke-linecap: round; }
+    .timer-ring .bg { stroke: rgba(255,255,255,0.05); }
+    .timer-ring .fg { stroke: var(--accent-color); transition: stroke-dashoffset 1s linear; filter: drop-shadow(0 0 10px var(--accent-glow)); }
+    
+    .timer-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+    }
+    .timer-display {
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      font-family: 'JetBrains Mono', monospace;
+      line-height: 1;
+    }
+    .lock-icon { font-size: 3rem; margin-bottom: 0.5rem; display: block; }
+    .stat-overlay {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--glass-border);
+    }
+    .stat-item { text-align: center; }
+    .stat-item span { display: block; font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; }
+    .stat-item strong { font-size: 1.25rem; color: var(--accent-color); }
+  </style>
+</head>
+<body data-theme="dark">
+  <div class="locked-container">
+    <div class="glass-panel p-10">
+      <h1 id="lock-title" style="font-size: 1.75rem;">Focus Active</h1>
+      <p id="lock-description" style="color: var(--text-secondary);">Your mind is your most valuable asset.</p>
+      
+      <div class="timer-ring">
+        <svg width="280" height="280">
+          <circle class="bg" cx="140" cy="140" r="125" />
+          <circle id="timer-fg" class="fg" cx="140" cy="140" r="125" stroke-dasharray="785" stroke-dashoffset="0" />
+        </svg>
+        <div class="timer-content">
+          <span class="lock-icon">🔒</span>
+          <div id="timer" class="timer-display">00:00</div>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem;">REMAINING</p>
+        </div>
+      </div>
+      
+      <div id="allowed-info" class="mb-6">
+        <p style="font-size: 0.9rem;">Access permitted to:</p>
+        <strong id="allowed-site" style="font-size: 1.5rem; color: var(--accent-color);"></strong>
+      </div>
+
+      <div class="stat-overlay">
+        <div class="stat-item">
+          <span>Streak</span>
+          <strong id="streak-val">0</strong>
+        </div>
+        <div class="stat-item">
+          <span>Saved Today</span>
+          <strong id="hours-saved">0.0</strong>
+        </div>
+      </div>
+      
+      <div class="mt-8 flex flex-direction-column gap-2">
+        <div id="finish-early-section" class="hidden">
+          <button id="finish-early" class="btn btn-secondary w-full">Finish Session Early</button>
+        </div>
+        <div id="emergency-section" class="hidden">
+          <button id="emergency-unlock" class="btn btn-danger w-full">Emergency Unlock</button>
+          <p style="font-size: 0.7rem; color: var(--text-secondary); margin-top: 0.5rem;">Requires 60s cooldown and triple confirmation.</p>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <script src="locked.js" type="module"></script>
+</body>
+</html>
